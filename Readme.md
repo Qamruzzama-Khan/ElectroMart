@@ -1,1 +1,1 @@
-This a simple ecommerce project.
+A mern stack e-commerce project with admin panel.
