@@ -5,13 +5,13 @@ import {
   Navigate,
 } from "react-router-dom";
 import "./App.css";
-import Navbar from "./components/Navbar";
-import LoginPage from "./pages/LoginPage";
-import OrdersPage from "./pages/OrdersPage";
+import Navbar from "./components/header/Navbar";
+import LoginPage from "./pages/auth/LoginPage";
+import OrdersPage from "./pages/order/OrdersPage";
 import { useAuthContext } from "./hooks/useAuth";
-import ProductsPage from "./pages/ProductsPage";
-import AddProductPage from "./pages/AddProductPage";
-import UpdateProductPage from "./pages/UpdateProductPage";
+import ProductsPage from "./pages/product/ProductsPage"
+import AddProductPage from "./pages/product/AddProductPage";
+import UpdateProductPage from "./pages/product/UpdateProductPage";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 

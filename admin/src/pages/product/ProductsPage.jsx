@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 import { fetchProducts } from "../../services/api/productApi";
 import { Link } from "react-router-dom";
-import { useAuthContext } from "../../hooks/useAuth";
-import ProductList from "../components/ProductList";
+import ProductList from "../../components/product/ProductList"
 import { useProductContext } from "../../hooks/useProduct";
 
 const ProductsPage = () => {
@@ -12,7 +11,6 @@ const ProductsPage = () => {
     const getProducts = async () => {
       const response = await fetchProducts();
       setProducts(response.data.data);
-      console.log(response.data.data);
     };
     getProducts();
   }, []);
