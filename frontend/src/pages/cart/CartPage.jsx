@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import GoBackBtn from "../../components/buttons/GoBackBtn";
 import CartList from "../../components/cart/CartList";
 import OrderSummary from "../../components/order/OrderSummary";
@@ -6,11 +7,14 @@ import { useCartContext } from "../../hooks/useCart";
 const CartPage = () => {
   const { cart } = useCartContext();
 
+  useEffect(() => {
+    console.log(cart)
+  }, [])
+
   return (
     <div className="mt-5">
       <GoBackBtn />
-      {cart && (
-        <div>
+      {cart.items.length >= 1 ? <div>
           <div className="flex flex-col items-center gap-2 md:hidden">
             <OrderSummary />
             <CartList />
@@ -19,8 +23,7 @@ const CartPage = () => {
             <CartList />
             <OrderSummary />
           </div>
-        </div>
-      )}
+        </div> : <div className="text-lg">You not added items to your cart</div>}
     </div>
   );
 };

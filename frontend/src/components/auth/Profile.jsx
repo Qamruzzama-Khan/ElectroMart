@@ -8,7 +8,7 @@ const Profile = ({ user }) => {
   };
 
   return (
-    <div className="border border-gray-300 w-full md:w-fit mx-auto p-2 rounded flex flex-col items-center gap-2">
+    <div className="border border-gray-300 w-full md:w-[50%] mx-auto p-2 rounded flex flex-col items-center gap-2">
       <span className="material-symbols-outlined text-8xl text-gray-600">
         account_circle
       </span>

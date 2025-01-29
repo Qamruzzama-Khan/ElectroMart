@@ -5,7 +5,7 @@ const MyOrdersPage = () => {
   const { orders } = useOrderContext();
 
   return (
-    <div className="border border-gray-400 p-2 rounded mt-5">
+    <div className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
       {orders &&
         orders.map((order) => <OrderItem key={order._id} order={order} />)}
     </div>

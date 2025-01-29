@@ -34,7 +34,7 @@ const CartItem = ({ item }) => {
   };
 
   return (
-    <div className="border border-gray-400 rounded-sm w-full flex flex-col p-2 gap-2">
+    <div className="border border-gray-300 rounded-sm w-full flex flex-col p-2 gap-2">
       <div className="flex gap-2">
         <div className="flex flex-col items-center gap-2">
           <img
@@ -67,7 +67,7 @@ const CartItem = ({ item }) => {
         </div>
       </div>
       <div className="flex gap-2 items-center">
-        <p className="border border-gray-600 rounded-sm p-1 w-full">
+        <p className="w-full">
           Subtotal: {item.subTotal}
         </p>
         <span

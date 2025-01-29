@@ -18,9 +18,10 @@ const OrderItem = ({ order }) => {
   };
 
   return (
-    <div className="flex items-center justify-between p-2">
-      <p>{order._id}</p>
-      <p>{isTracking ? "Tracking..." : order.status}</p>
+    <div className="flex flex-col justify-between border border-gray-300 p-2 rounded">
+       <p>ID: {order._id}</p>
+      <p>Status: {isTracking ? "Tracking..." : order.status}</p>
+      <div className="flex items-start justify-between">
       <p>Items: {order.totalItems}</p>
       <button
         className="px-2 py-1 bg-green-600 hover:bg-green-700 rounded text-white"
@@ -28,6 +29,7 @@ const OrderItem = ({ order }) => {
       >
         Track
       </button>
+   </div>
     </div>
   );
 };
