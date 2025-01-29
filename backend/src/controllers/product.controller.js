@@ -2,7 +2,7 @@ import { AsyncHandler } from "../utils/AsyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { Product } from "../models/product.model.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
-import { uploadCloudinary, deleteCloudinary } from "../utils/cloudinary.js";
+import { uploadCloudinary, deleteCloudinary } from "../utils/Cloudinary.js";
 
 // create product
 const createProduct = AsyncHandler(async (req, res) => {
