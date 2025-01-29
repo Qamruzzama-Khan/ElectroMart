@@ -1,12 +1,10 @@
-import { useEffect, useState } from "react";
-import { fetchOneProduct, updateProduct } from "../services/api/productApi";
-import { useAuthContext } from "../hooks/useAuth";
-import { useNavigate, useParams } from "react-router-dom";
-import GoBackBtn from "../components/buttons/GoBackBtn";
+import { useState } from "react";
+import { createProduct } from "../../services/api/productApi";
+import { useAuthContext } from "../../hooks/useAuth";
+import GoBackBtn from "../../components/buttons/GoBackBtn";
 import { toast } from "react-toastify";
 
-const UpdateProductPage = () => {
-  const { productId } = useParams();
+const AddProductPage = () => {
   const [form, setForm] = useState({
     name: "",
     description: "",
@@ -16,17 +14,6 @@ const UpdateProductPage = () => {
   });
   const [imagePreview, setImagePreview] = useState(null);
   const { user } = useAuthContext();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const getOneProduct = async () => {
-      const response = await fetchOneProduct(productId, user?.accessToken);
-      console.log(response.data.data);
-      setForm(response.data.data);
-      setImagePreview(response.data.data.image.imageUrl);
-    };
-    getOneProduct();
-  }, []);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -54,17 +41,14 @@ const UpdateProductPage = () => {
     }
   };
 
-  const handleUpdate = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formDataToSend = new FormData();
     Object.keys(form).forEach((key) => {
       formDataToSend.append(key, form[key]);
     });
-    const response = await updateProduct(
-      productId,
-      formDataToSend,
-      user?.accessToken
-    );
+
+    const response = await createProduct(formDataToSend, user?.accessToken);
     toast(response.data.message, {
       position: "top-right",
       autoClose: 3000,
@@ -75,28 +59,32 @@ const UpdateProductPage = () => {
       progress: undefined,
       theme: "light",
     });
-    navigate("/");
+    setForm({
+      name: "",
+      description: "",
+      image: null,
+      price: "",
+      stock: 0,
+    });
+    setImagePreview(null);
   };
 
   return (
     <div className="mt-5">
       <GoBackBtn />
-      <form onSubmit={handleUpdate} className="flex items-start gap-2 mt-5">
-        {/* div-1 */}
-        <div className="w-fit relative">
+      <form
+        onSubmit={handleSubmit}
+        className="flex gap-2 p-2 rounded mt-5 items-start"
+      >
+        <div className="w-[40%] text-center">
           {/* image */}
           <label htmlFor="image" className="cursor-pointer">
             {imagePreview ? (
-              <div>
-                <img
-                  className="h-56 w-auto mx-auto"
-                  src={imagePreview}
-                  alt="product-image"
-                />
-                <span className="material-symbols-outlined text-gray-500 absolute top-2 right-2 text-4xl">
-                  add_a_photo
-                </span>
-              </div>
+              <img
+                className="h-56 w-auto mx-auto"
+                src={imagePreview}
+                alt="product-image"
+              />
             ) : (
               <span className="material-symbols-outlined text-9xl text-gray-500">
                 add_a_photo
@@ -112,8 +100,6 @@ const UpdateProductPage = () => {
             hidden
           />
         </div>
-
-        {/* div-2 */}
         <div className="flex flex-col w-[60%] gap-2">
           {/* name */}
           <input
@@ -151,11 +137,9 @@ const UpdateProductPage = () => {
             name="stock"
             placeholder="Stock"
           />
-          <button
-            type="submit"
-            className="bg-pink-600 hover:bg-pink-700 text-white p-2 rounded"
-          >
-            Update
+          {/* add-btn */}
+          <button type="submit" className="bg-pink-700 text-white p-2 rounded">
+            Add
           </button>
         </div>
       </form>
@@ -163,4 +147,4 @@ const UpdateProductPage = () => {
   );
 };
 
-export default UpdateProductPage;
+export default AddProductPage;

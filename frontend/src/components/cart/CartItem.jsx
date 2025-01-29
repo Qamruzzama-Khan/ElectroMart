@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useAuthContext } from "../hooks/useAuth";
-import { removeItemFromcart, updateCart } from "../services/api/cartApi";
-import { useCartContext } from "../hooks/useCart";
+import { useAuthContext } from "../../hooks/useAuth";
+import { removeItemFromcart, updateCart } from "../../services/api/cartApi";
+import { useCartContext } from "../../hooks/useCart";
 import { toast } from "react-toastify";
 
 const CartItem = ({ item }) => {

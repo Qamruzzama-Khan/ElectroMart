@@ -1,15 +1,15 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/header/Navbar";
 import HomePage from "./pages/HomePage";
-import CartPage from "./pages/CartPage";
-import AuthPage from "./pages/AuthPage";
-import ProductDetailsPage from "./pages/ProductDetailsPage";
+import CartPage from "./pages/cart/CartPage";
+import AuthPage from "./pages/auth/AuthPage"
+import ProductDetailsPage from "./pages/product/ProductDetailsPage";
 import ChekoutPage from "./pages/ChekoutPage";
-import MyOrdersPage from "./pages/MyOrdersPage";
+import MyOrdersPage from "./pages/order/MyOrdersPage";
 import { useAuthContext } from "./hooks/useAuth";
 import { Navigate } from "react-router-dom";
-import ProfilePage from "./pages/ProfilePage";
+import ProfilePage from "./pages/auth/ProfilePage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 

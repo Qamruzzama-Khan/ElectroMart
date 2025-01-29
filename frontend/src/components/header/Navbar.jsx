@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { useCartContext } from "../hooks/useCart";
-import { useAuthContext } from "../hooks/useAuth";
+import { useCartContext } from "../../hooks/useCart";
+import { useAuthContext } from "../../hooks/useAuth";
 
 const Navbar = () => {
   const { cart } = useCartContext();

@@ -1,5 +1,4 @@
-import { useAuthContext } from "../hooks/useAuth";
-
+import { useAuthContext } from "../../hooks/useAuth";
 const Profile = ({ user }) => {
   const { dispatch } = useAuthContext();
 

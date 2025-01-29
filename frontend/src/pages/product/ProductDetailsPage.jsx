@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import GoBackBtn from "../components/buttons/GoBackBtn";
+import GoBackBtn from "../../components/buttons/GoBackBtn";
 import { useParams } from "react-router-dom";
-import { fetchOneProduct } from "../services/api/productApi";
-import ProductDetails from "../components/ProductDetails";
+import { fetchOneProduct } from "../../services/api/productApi";
+import ProductDetails from "../../components/product/ProductDetails";
 
 const ProductDetailsPage = () => {
   const { productId } = useParams();

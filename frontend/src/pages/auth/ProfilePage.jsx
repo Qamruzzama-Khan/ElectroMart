@@ -1,5 +1,5 @@
-import { useAuthContext } from "../hooks/useAuth";
-import Profile from "../components/Profile";
+import { useAuthContext } from "../../hooks/useAuth";
+import Profile from "../../components/auth/Profile";
 import { useEffect } from "react";
 
 const ProfilePage = () => {

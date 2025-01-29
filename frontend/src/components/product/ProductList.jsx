@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { fetchProducts } from "../services/api/productApi";
+import { fetchProducts } from "../../services/api/productApi";
 import ProductCard from "./ProductCard";
 
-const Products = () => {
+const ProductList = () => {
   const [products, setProducts] = useState();
 
   useEffect(() => {
@@ -23,4 +23,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default ProductList;

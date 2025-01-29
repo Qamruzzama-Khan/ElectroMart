@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import { useCartContext } from "../hooks/useCart";
+import { useCartContext } from "../../hooks/useCart";
 import CartItem from "./CartItem";
 
-const Cart = () => {
+const CartList = () => {
   const { cart } = useCartContext();
 
   return (
@@ -13,4 +13,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default CartList;

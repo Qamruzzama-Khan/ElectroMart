@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { fetchProducts } from "../services/api/productApi";
+import { fetchProducts } from "../../services/api/productApi";
 import { Link } from "react-router-dom";
-import { useAuthContext } from "../hooks/useAuth";
+import { useAuthContext } from "../../hooks/useAuth";
 import ProductList from "../components/ProductList";
-import { useProductContext } from "../hooks/useProduct";
+import { useProductContext } from "../../hooks/useProduct";
 
 const ProductsPage = () => {
   const { products, setProducts } = useProductContext();

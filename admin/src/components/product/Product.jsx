@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { deleteProduct } from "../services/api/productApi";
-import { useAuthContext } from "../hooks/useAuth";
-import { useProductContext } from "../hooks/useProduct";
+import { deleteProduct } from "../../services/api/productApi";
+import { useAuthContext } from "../../hooks/useAuth";
+import { useProductContext } from "../../hooks/useProduct";
 
 const Product = ({ product, index }) => {
   const { products, setProducts } = useProductContext();

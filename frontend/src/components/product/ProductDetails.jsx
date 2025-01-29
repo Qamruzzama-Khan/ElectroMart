@@ -1,14 +1,14 @@
 import { useState } from "react";
-import { addItemTocart } from "../services/api/cartApi";
-import { useAuthContext } from "../hooks/useAuth";
+import { addItemTocart } from "../../services/api/cartApi";
+import { useAuthContext } from "../../hooks/useAuth";
 import { Link } from "react-router-dom";
-import { useCartContext } from "../hooks/useCart";
+import { useCartContext } from "../../hooks/useCart";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const ProductDetails = ({ product }) => {
   const { user } = useAuthContext();
-  const { cart, setCart } = useCartContext();
+  const { setCart } = useCartContext();
   const [isAdded, setIsAdded] = useState(false);
   const navigate = useNavigate();
 

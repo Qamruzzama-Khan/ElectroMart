@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
-import OrderItem from "../components/OrderItem";
-import { useOrderContext } from "../hooks/useOrder";
+import OrderItem from "../../components/order/OrderItem";
+import { useOrderContext } from "../../hooks/useOrder";
 
 const MyOrdersPage = () => {
   const { orders } = useOrderContext();

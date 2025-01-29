@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useAuthContext } from "../hooks/useAuth";
-import { loginUser } from "../services/api/userApi";
+import { useAuthContext } from "../../hooks/useAuth";
+// import { loginUser } from "../services/api/userApi";
 import { useNavigate } from "react-router-dom";
 
-const LoginPage = () => {
+const Login = () => {
   const [form, setForm] = useState({ email: "", password: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { dispatch } = useAuthContext();
@@ -32,15 +32,11 @@ const LoginPage = () => {
     try {
       setIsSubmitting(true);
       const response = await loginUser(form);
-      if (response.data.data.user.status === "admin") {
-        dispatch({ type: "LOGIN", payload: response.data.data });
-        localStorage.setItem("user", JSON.stringify(response.data.data));
-        setIsSubmitting(false);
-        setForm({ email: "", password: "" });
-        navigate(-1);
-      } else {
-        setError("Sorry your not admin...!");
-      }
+      dispatch({ type: "LOGIN", payload: response.data.data });
+      localStorage.setItem("user", JSON.stringify(response.data.data));
+      setIsSubmitting(false);
+      setForm({ name: "", email: "", password: "", confirmPassword: "" });
+      navigate(-1);
     } catch (error) {
       setError(error.response.data.message);
       setIsSubmitting(false);
@@ -48,7 +44,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-3 p-2 w-full md:w-[50%] mx-auto mt-20">
+    <div className="flex flex-col items-center gap-3 p-2">
       <h4 className="text-xl text-pink-700 ">Login</h4>
       <form
         onSubmit={handleSubmit}
@@ -95,4 +91,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default Login;

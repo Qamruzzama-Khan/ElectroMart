@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { useCartContext } from "../hooks/useCart";
+import { useCartContext } from "../../hooks/useCart";
 
-const Summary = () => {
+const OrderSummary = () => {
   const { cart } = useCartContext();
 
   return (
@@ -24,4 +24,4 @@ const Summary = () => {
   );
 };
 
-export default Summary;
+export default OrderSummary;

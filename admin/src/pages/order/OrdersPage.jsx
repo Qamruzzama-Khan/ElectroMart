@@ -1,8 +1,8 @@
 import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react'
-import { fetchOrders, updateOrderStatus } from '../services/api/orderApi';
-import { useAuthContext } from '../hooks/useAuth';
+import { fetchOrders, updateOrderStatus } from '../../services/api/orderApi';
+import { useAuthContext } from '../../hooks/useAuth';
 
 const OrdersPage = () => {
     const [orders, setOrders] = useState();

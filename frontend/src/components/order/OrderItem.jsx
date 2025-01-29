@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { useAuthContext } from "../hooks/useAuth";
-import { fetchOneOrder } from "../services/api/orderApi";
-import { useOrderContext } from "../hooks/useOrder";
+import { useState } from "react";
+import { useAuthContext } from "../../hooks/useAuth";
+import { fetchOneOrder } from "../../services/api/orderApi";
+import {useOrderContext} from "../../hooks/useOrder"
 
 const OrderItem = ({ order }) => {
   const { user } = useAuthContext();
