@@ -33,7 +33,7 @@ const Navbar = () => {
             <span className="material-symbols-outlined text-3xl">
               shopping_bag
             </span>
-            {cart.totalItems > 0 && (
+            {user && cart.totalItems > 0 && (
               <span className="bg-pink-700 text-white inline-block h-[22px] w-[22px] rounded-full flex items-center justify-center text-sm font-semibold">
                 {cart.totalItems}
               </span>
@@ -69,7 +69,7 @@ const Navbar = () => {
          <span className="material-symbols-outlined text-3xl">
            shopping_bag
          </span>
-         {cart.totalItems > 0 && (
+         {user && cart.totalItems > 0 && (
            <span className="bg-pink-700 text-white inline-block h-[22px] w-[22px] rounded-full flex items-center justify-center text-sm font-semibold">
              {cart.totalItems}
            </span>

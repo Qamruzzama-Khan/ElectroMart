@@ -36,7 +36,7 @@ const App = () => {
         <Route path="/" element={<HomePage />} />
         <Route
           path="/cart"
-          element={user ? <CartPage /> : <Navigate to="/auth" />}
+          element={user && <CartPage />}
         />
         <Route path="/auth" element={<AuthPage />} />
         <Route
@@ -46,13 +46,12 @@ const App = () => {
         <Route path="/checkout" element={<ChekoutPage />} />
         <Route
           path="/my-orders"
-          element={user ? <MyOrdersPage /> : <Navigate to="/auth" />}
+          element={user && <MyOrdersPage />}
         />
         <Route
           path="/profile"
-          element={user ? <ProfilePage /> : <Navigate to="/auth" />}
+          element={user && <ProfilePage />}
         />
-        {/* <Route path="/order" element={<PlaceOrder/>} /> */}
       </Routes>
     </div>
   );

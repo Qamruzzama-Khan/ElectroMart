@@ -1,10 +1,14 @@
 import { useAuthContext } from "../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
+
 const Profile = ({ user }) => {
   const { dispatch } = useAuthContext();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
     localStorage.removeItem("user");
+    navigate('/')
   };
 
   return (

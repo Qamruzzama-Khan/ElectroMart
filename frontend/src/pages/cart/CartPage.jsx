@@ -6,15 +6,11 @@ import { useCartContext } from "../../hooks/useCart";
 
 const CartPage = () => {
   const { cart } = useCartContext();
-
-  useEffect(() => {
-    console.log(cart)
-  }, [])
-
+  
   return (
     <div className="mt-5">
       <GoBackBtn />
-      {cart.items.length >= 1 ? <div>
+      {cart.items && cart.items.length >= 1 ? <div>
           <div className="flex flex-col items-center gap-2 md:hidden">
             <OrderSummary />
             <CartList />
@@ -23,7 +19,7 @@ const CartPage = () => {
             <CartList />
             <OrderSummary />
           </div>
-        </div> : <div className="text-lg">You not added items to your cart</div>}
+        </div> : <div className="text-lg">No items added...</div>}
     </div>
   );
 };
