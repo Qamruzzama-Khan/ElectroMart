@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:3000/api/v1/product",
+  baseURL: "https://electromart-backend-vdvm.onrender.com/api/v1/product",
 });
 
 // get products
