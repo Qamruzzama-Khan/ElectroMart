@@ -77,7 +77,7 @@ const Navbar = () => {
         {user && user?.user.status === "admin" && 
           <Link>
             <li
-              className="text-white cursor-pointer bg-red-500 px-3 rounded-full w-fit hover:bg-red-600"
+              className="border border-pink-600 cursor-pointer  px-3 rounded-full w-fit hover:bg-pink-600 hover:text-white"
               onClick={handleLogout}
             >
               Logout
