@@ -14,6 +14,8 @@ const AddProductPage = () => {
   });
   const [imagePreview, setImagePreview] = useState(null);
   const { user } = useAuthContext();
+   const [isSubmitting, setIsSubmitting] = useState(false);
+   const [error, setError] = useState("");
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -48,7 +50,9 @@ const AddProductPage = () => {
       formDataToSend.append(key, form[key]);
     });
 
-    const response = await createProduct(formDataToSend, user?.accessToken);
+    try {
+      setIsSubmitting(true);
+      const response = await createProduct(formDataToSend, user?.accessToken);
     toast(response.data.message, {
       position: "top-right",
       autoClose: 3000,
@@ -59,6 +63,7 @@ const AddProductPage = () => {
       progress: undefined,
       theme: "light",
     });
+    setIsSubmitting(false);
     setForm({
       name: "",
       description: "",
@@ -67,6 +72,10 @@ const AddProductPage = () => {
       stock: 0,
     });
     setImagePreview(null);
+    } catch (error) {
+      setError(error.response.data.message);
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -137,9 +146,11 @@ const AddProductPage = () => {
             name="stock"
             placeholder="Stock"
           />
+          {/* error */}
+           {error && <div className="text-red-600 text-lg">{error}...!</div>}
           {/* add-btn */}
-          <button type="submit" className="bg-pink-700 text-white p-2 rounded">
-            Add
+          <button type="submit" className="bg-pink-700 text-white p-2 rounded" disabled={isSubmitting}>
+          {isSubmitting ? "Submitting..." : "Add"}
           </button>
         </div>
       </form>
