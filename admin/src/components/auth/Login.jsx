@@ -45,7 +45,7 @@ const Login = () => {
 
   return (
     <div className="flex flex-col items-center gap-3 p-2">
-      <h4 className="text-xl text-pink-700 ">Login</h4>
+      <h4 className="text-xl text-pink-700 ">Admin - login</h4>
       <form
         onSubmit={handleSubmit}
         className="w-full flex flex-col items-center gap-2"
