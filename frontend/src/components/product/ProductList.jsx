@@ -25,9 +25,9 @@ const ProductList = () => {
   }
 
   return (
-   <div className="flex items-center">
+   <div className="flex items-center mt-4">
     <MdChevronLeft onClick={slideLeft} className="cursor-pointer opacity-50 hover:opacity-100 hidden md:inline-block" size={40} />
-     <div id="slider" className="mx-auto w-full p-2  flex overflow-x-scroll gap-4 scroll-smooth scrollbar-hide">
+     <div id="slider" className="mx-auto w-full flex overflow-x-scroll gap-4 scroll-smooth scrollbar-hide">
       {products &&
         products.map((product) => (
           <ProductCard key={product._id} product={product} />
