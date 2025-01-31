@@ -19,48 +19,54 @@ const createProduct = AsyncHandler(async (req, res) => {
   const { name, description, price, sizes, stock } = req.body;
   const userId = req.user;
 
-  // modify name
-  // const firstLetterOfName = name.slice(0, 1).toUpperCase();
-  // const remainingLettersOName = name.slice(1).toLowerCase();
-  // const modifiedName = firstLetterOfName + remainingLettersOName;
+  // modify product name
+  const firstLetterOfName = name.slice(0, 1).toUpperCase();
+  const remainingLettersOName = name.slice(1).toLowerCase();
+  const modifiedName = firstLetterOfName + remainingLettersOName;
 
-  // const product = await Product.findOne({ name: modifiedName });
-  // if (product) {
-  //   throw new ApiError(400, "Product already exists");
-  // }
+  const product = await Product.findOne({ name: modifiedName });
+  if (product) {
+    throw new ApiError(400, "Product already exists");
+  }
 
-  // const productImageLocalPath = req.file?.path;
+  const productImageLocalPath = req.file?.path;
 
-  // if (!productImageLocalPath) {
-  //   throw new ApiError(400, "Product image is required");
-  // }
+  if (!productImageLocalPath) {
+    throw new ApiError(400, "Product image is required");
+  }
 
-  // const productImage = await uploadCloudinary(productImageLocalPath);
-  // if (!productImage) {
-  //   throw new ApiError(400, "Error while uploading image on cloudinary");
-  // }
+  const productImage = await uploadCloudinary(productImageLocalPath);
+  if (!productImage) {
+    throw new ApiError(400, "Error while uploading image on cloudinary");
+  }
 
-  // const newProduct = await Product.create({
-  //   name: modifiedName,
-  //   description,
-  //   price: `\u20B9${price}`,
-  //   stock,
-  //   sizes,
-  //   image: {
-  //     imageUrl: productImage.url,
-  //     imageId: productImage.public_id,
-  //   },
-  //   owner: userId,
-  // });
+  const formattedPrice = new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    minimumFractionDigits: 0
+  }).format(price);
 
-  // const createdProduct = await Product.findById(newProduct._id);
-  // if (!createdProduct) {
-  //   throw new ApiError(404, "Product did not created");
-  // }
+  const newProduct = await Product.create({
+    name: modifiedName,
+    description,
+    price: formattedPrice,
+    stock,
+    sizes,
+    image: {
+      imageUrl: productImage.url,
+      imageId: productImage.public_id,
+    },
+    owner: userId,
+  });
+
+  const createdProduct = await Product.findById(newProduct._id);
+  if (!createdProduct) {
+    throw new ApiError(404, "Product did not created");
+  }
 
   return res
     .status(201)
-    .json(new ApiResponse(200, "Product added successfully"));
+    .json(new ApiResponse(200, createdProduct, "Product added successfully"));
 });
 
 // get products
