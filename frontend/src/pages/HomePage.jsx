@@ -1,6 +1,7 @@
 import ProductList from "../components/product/ProductList";
 
 const HomePage = () => {
+  
   return (
     <div className="mt-5">
       <img className="h-40 md:h-80 w-full mx-auto" src="apple-hero-image.jpg" alt="hero-image" />
