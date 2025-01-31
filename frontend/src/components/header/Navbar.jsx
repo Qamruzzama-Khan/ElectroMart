@@ -19,7 +19,7 @@ const Navbar = () => {
         <span className="material-symbols-outlined text-pink-700 text-4xl md:text-5xl">
           cable
         </span>
-        <span className="text-pink-700 font-semibold text-xl md:text-3xl">
+        <span className="text-pink-700 font-semibold text-2xl md:text-3xl">
           ElectroMart
         </span>
       </h1>
