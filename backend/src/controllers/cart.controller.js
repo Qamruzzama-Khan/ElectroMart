@@ -22,7 +22,23 @@ const addItemToCart = AsyncHandler(async (req, res) => {
     throw new ApiError(404, "Product not found");
   }
 
-  const productPrice = Number(product.price.slice(1));
+  const productPrice = parseFloat(product.price.replace(/[^\d.-]/g, ''));
+
+  const subtotal = productPrice * productQuantity;
+
+  const formattedSubtotal = new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    minimumFractionDigits: 0
+  }).format(subtotal);
+
+  const totalBill = productPrice * productQuantity;
+
+  const formattedTotalBill = new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    minimumFractionDigits: 0
+  }).format(totalBill);
 
   // check if cart exists for the user
   let cart = await Cart.findOne({ userId });
@@ -34,10 +50,10 @@ const addItemToCart = AsyncHandler(async (req, res) => {
           product: productId,
           quantity,
           price: product.price,
-          subTotal: `\u20B9${productPrice * productQuantity}`,
+          subTotal: formattedSubtotal,
         },
       ],
-      totalBill: `\u20B9${productPrice * productQuantity}`,
+      totalBill: formattedTotalBill,
     });
   } else {
     // check if the item is already in the cart
@@ -50,21 +66,36 @@ const addItemToCart = AsyncHandler(async (req, res) => {
       cart.items[itemIndex].quantity += productQuantity;
 
       // old subTotal
-      const oldSubTotal = Number(cart.items[itemIndex].subTotal.slice(1));
+      const oldSubTotal = parseFloat(cart.items[itemIndex].subTotal.replace(/[^\d.-]/g, ''));
 
       // new subTotal
       const newSubTotal = productPrice * productQuantity;
 
       // update subTotal
-      cart.items[itemIndex].subTotal = `\u20B9${oldSubTotal + newSubTotal}`;
+      const updatedSubtotal = oldSubTotal + newSubTotal;
+
+      const formattedUpdatedSubtotal = new Intl.NumberFormat("en-IN", {
+        style: "currency",
+        currency: "INR",
+        minimumFractionDigits: 0
+      }).format(updatedSubtotal);
+
+      cart.items[itemIndex].subTotal = formattedUpdatedSubtotal;
     } else {
       // add new item to the cart
       const subTotal = productPrice * productQuantity;
+
+      const formattedSubtotal = new Intl.NumberFormat("en-IN", {
+        style: "currency",
+        currency: "INR",
+        minimumFractionDigits: 0
+      }).format(subTotal);
+
       cart.items.push({
         product: productId,
         quantity: productQuantity,
         price: product.price,
-        subTotal: `\u20B9${subTotal}`,
+        subTotal: formattedSubtotal,
       });
     }
   }
@@ -74,12 +105,18 @@ const addItemToCart = AsyncHandler(async (req, res) => {
   let grandTotal = 0;
   for (let i = 0; i < cart.items.length; i++) {
     const item = cart.items[i];
-    const productPrice = Number(item.price.slice(1));
+    const productPrice =  parseFloat(item.price.replace(/[^\d.-]/g, ''));
     const subTotal = item.quantity * productPrice;
     grandTotal += subTotal;
   }
 
-  cart.totalBill = `\u20B9${grandTotal}`;
+  const formattedGrandTotal = new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    minimumFractionDigits: 0
+  }).format(grandTotal);
+
+  cart.totalBill = formattedGrandTotal;
 
   // save the cart
   await cart.save();
@@ -129,11 +166,17 @@ const removeItemFromCart = AsyncHandler(async (req, res) => {
   let grandTotal = 0;
   for (let i = 0; i < cart.items.length; i++) {
     const item = cart.items[i];
-    const productPrice = Number(item.price.slice(1));
+    const productPrice = parseFloat(item.price.replace(/[^\d.-]/g, ''));
     const subTotal = item.quantity * productPrice;
     grandTotal += subTotal;
   }
-  cart.totalBill = `\u20B9${grandTotal}`;
+  const formattedGrandTotal = new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    minimumFractionDigits: 0
+  }).format(grandTotal);
+
+  cart.totalBill = formattedGrandTotal;
 
   await cart.save();
 
@@ -164,7 +207,7 @@ const updateCart = AsyncHandler(async (req, res) => {
   if (updatingItemIndex > -1) {
     // get product price
     const item = cart.items[updatingItemIndex];
-    const productPrice = Number(item.price.slice(1));
+    const productPrice = parseFloat(item.price.replace(/[^\d.-]/g, ''));
 
     // update quantity
     cart.items[updatingItemIndex].quantity = quantity;
@@ -172,19 +215,32 @@ const updateCart = AsyncHandler(async (req, res) => {
     // new subTotal
     const newSubTotal = productPrice * quantity;
 
+    const formattedNewSubtotal = new Intl.NumberFormat("en-IN", {
+      style: "currency",
+      currency: "INR",
+      minimumFractionDigits: 0
+    }).format(newSubTotal);
+
     // update subTotal
-    cart.items[updatingItemIndex].subTotal = `\u20B9${newSubTotal}`;
+    cart.items[updatingItemIndex].subTotal = formattedNewSubtotal;
   }
 
   // update cart.totalBill
   let grandTotal = 0;
   for (let i = 0; i < cart.items.length; i++) {
     const item = cart.items[i];
-    const productPrice = Number(item.price.slice(1));
+    const productPrice = parseFloat(item.price.replace(/[^\d.-]/g, ''));
     const subTotal = item.quantity * productPrice;
     grandTotal += subTotal;
   }
-  cart.totalBill = `\u20B9${grandTotal}`;
+
+  const formattedGrandTotal = new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    minimumFractionDigits: 0
+  }).format(grandTotal);
+
+  cart.totalBill = formattedGrandTotal;
 
   // save the cart
   await cart.save();

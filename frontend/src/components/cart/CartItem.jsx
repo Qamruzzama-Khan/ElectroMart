@@ -39,7 +39,7 @@ const CartItem = ({ item }) => {
         <div className="flex flex-col items-center gap-2">
           <img
             className="h-20 w-[110px]"
-            src={item.product.image.imageUrl}
+            src={item.product?.image.imageUrl}
             alt="item-image"
           />
           {/* quantity */}
@@ -62,7 +62,7 @@ const CartItem = ({ item }) => {
           </div>
         </div>
         <div className="w-full">
-          <p>{item.product.name}</p>
+          <p>{item.product?.name}</p>
           <p>Price: {item.price}</p>
         </div>
       </div>

@@ -6,6 +6,10 @@ import { useCartContext } from "../../hooks/useCart";
 
 const CartPage = () => {
   const { cart } = useCartContext();
+
+  useEffect(() => {
+    console.log(cart)
+  }, [])
   
   return (
     <div className="mt-5">
