@@ -5,6 +5,7 @@ import { Error } from "./middlewares/error.middleware.js";
 import path from "path";
 
 const app = express();
+const _dirname = path.resolve();
 
 app.use(
   cors({
@@ -16,12 +17,12 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 // serve static files (your React/Vue/Angular build)
-app.use(express.static(path.join(process.cwd(), 'build')));
+app.use(express.static(path.join(_dirname, "/frontend/dist")));
 app.use(cookieParser());
 
 // catch-all route to handle all other requests
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(process.cwd(), 'build', "/frontend/dist"));
+app.get('*', (_, res) => {
+  res.sendFile(path.resolve(_dirname, "frontend", "dist", "index.html"))
 })
 
 // routes import
