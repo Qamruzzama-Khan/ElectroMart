@@ -29,15 +29,27 @@ export const CartContextProvider = ({ children }) => {
 
     if (item) {
       let newQuantity = 0;
-      let itemSubTotal = Number(item.subTotal.slice(1));
-      let cartTotalBill = Number(cart.totalBill.slice(1));
-      const productPrice = Number(item.price.slice(1));
+      let itemSubTotal = parseFloat(item.subTotal.replace(/[^\d.-]/g, ''));
+      let cartTotalBill =   parseFloat(cart.totalBill.replace(/[^\d.-]/g, ''));
+      const productPrice = parseFloat(item.price.replace(/[^\d.-]/g, ''));
 
       if (operation === "increase") {
         newQuantity = item.quantity + 1;
         itemSubTotal = productPrice * newQuantity;
         cartTotalBill += productPrice;
 
+        const formattedItemSubtotal = new Intl.NumberFormat("en-IN", {
+          style: "currency",
+          currency: "INR",
+          minimumFractionDigits: 0
+        }).format(itemSubTotal);
+
+        const formattedCartTotalBill = new Intl.NumberFormat("en-IN", {
+          style: "currency",
+          currency: "INR",
+          minimumFractionDigits: 0
+        }).format(cartTotalBill);
+
         setCart((prevCart) => ({
           ...prevCart,
           items: [
@@ -46,18 +58,31 @@ export const CartContextProvider = ({ children }) => {
                 ? {
                     ...item,
                     quantity: newQuantity,
-                    subTotal: `\u20B9${itemSubTotal}`,
+                    subTotal: formattedItemSubtotal,
                   }
                 : item
             ),
           ],
-          totalBill: `\u20B9${cartTotalBill}`,
+          totalBill: formattedCartTotalBill,
         }));
       }
       if (operation === "decrease") {
         newQuantity = item.quantity - 1;
         itemSubTotal = productPrice * newQuantity;
         cartTotalBill -= productPrice;
+
+        const formattedItemSubtotal = new Intl.NumberFormat("en-IN", {
+          style: "currency",
+          currency: "INR",
+          minimumFractionDigits: 0
+        }).format(itemSubTotal);
+
+        const formattedCartTotalBill = new Intl.NumberFormat("en-IN", {
+          style: "currency",
+          currency: "INR",
+          minimumFractionDigits: 0
+        }).format(cartTotalBill);
+
         setCart((prevCart) => ({
           ...prevCart,
           items: [
@@ -66,12 +91,12 @@ export const CartContextProvider = ({ children }) => {
                 ? {
                     ...item,
                     quantity: newQuantity,
-                    subTotal: `\u20B9${itemSubTotal}`,
+                    subTotal: formattedItemSubtotal,
                   }
                 : item
             ),
           ],
-          totalBill: `\u20B9${cartTotalBill}`,
+          totalBill: formattedCartTotalBill,
         }));
       }
       // Update the cart on the backend
@@ -91,12 +116,17 @@ export const CartContextProvider = ({ children }) => {
   const removeFromCart = (itemId) => {
     const item = cart.items.find((item) => item._id === itemId);
 
-    const removingItemSubtotal = Number(item.subTotal.slice(1));
-    console.log(removingItemSubtotal);
+    const removingItemSubtotal = parseFloat(item.subTotal.replace(/[^\d.-]/g, ''));
 
-    const cartTotalBill = Number(cart.totalBill.slice(1));
+    const cartTotalBill = parseFloat(cart.totalBill.replace(/[^\d.-]/g, ''));
 
     const updatedCartTotalBill = cartTotalBill - removingItemSubtotal;
+
+    const formattedUpdatedCartTotalBill = new Intl.NumberFormat("en-IN", {
+      style: "currency",
+      currency: "INR",
+      minimumFractionDigits: 0
+    }).format(updatedCartTotalBill);
 
     const updatedItemsArray = cart.items.filter((item) => item._id !== itemId);
     console.log(updatedItemsArray);
@@ -105,7 +135,7 @@ export const CartContextProvider = ({ children }) => {
       setCart((prevCart) => ({
         ...prevCart,
         items: [...prevCart.items.filter((item) => item._id !== itemId)],
-        totalBill: `\u20B9${updatedCartTotalBill}`,
+        totalBill: formattedUpdatedCartTotalBill,
         totalItems: updatedItemsArray.length,
       }));
     }
