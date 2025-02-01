@@ -21,7 +21,7 @@ app.use(cookieParser());
 
 // catch-all route to handle all other requests
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve(process.cwd(), 'build', "index.html"));
+  res.sendFile(path.resolve(process.cwd(), 'build', "/frontend/dist"));
 })
 
 // routes import
