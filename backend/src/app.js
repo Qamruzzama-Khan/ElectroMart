@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import { Error } from "./middlewares/error.middleware.js";
+import path from "path";
 
 const app = express();
 
@@ -14,8 +15,14 @@ app.use(
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
-app.use(express.static("public"));
+// serve static files (your React/Vue/Angular build)
+app.use(express.static(path.join(process.cwd(), 'build')));
 app.use(cookieParser());
+
+// catch-all route to handle all other requests
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(process.cwd(), 'build', "index.html"));
+})
 
 // routes import
 import userRoutes from "./routes/user.route.js";
