@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://electromart-backend-r11z.onrender.com/api/v1/auth/cart",
+  baseURL: "https://electromart-9wkq.onrender.com/api/v1/auth/cart",
 });
 
 // get cart
