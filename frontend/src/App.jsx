@@ -33,7 +33,7 @@ const App = () => {
         className="text-sm md:text-md"
       />
       <Routes>
-        <Route path="/products" element={<HomePage />} />
+        <Route path="/" element={<HomePage />} />
         <Route
           path="/cart"
           element={<CartPage />}

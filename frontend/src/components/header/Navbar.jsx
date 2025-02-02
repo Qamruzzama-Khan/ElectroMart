@@ -24,7 +24,7 @@ const Navbar = () => {
         </span>
       </h1>
       <ul className="hidden md:flex items-center gap-5 text-xl  text-gray-600">
-        <Link to="/products">
+        <Link to="/">
           <li className="hover:text-pink-700 cursor-pointer">Home</li>
         </Link>
 
