@@ -79,82 +79,104 @@ const AddProductPage = () => {
   };
 
   return (
-    <div className="mt-5">
-      <GoBackBtn />
-      <form
-        onSubmit={handleSubmit}
-        className="flex gap-2 p-2 rounded mt-5 items-start"
-      >
-        <div className="w-[40%] text-center">
-          {/* image */}
-          <label htmlFor="image" className="cursor-pointer">
-            {imagePreview ? (
-              <img
-                className="h-56 w-auto mx-auto"
-                src={imagePreview}
-                alt="product-image"
-              />
-            ) : (
-              <span className="material-symbols-outlined text-9xl text-gray-500">
-                add_a_photo
-              </span>
-            )}
-          </label>
-          <input
-            onChange={handleChange}
-            className="border border-gray-300 p-2 rounded w-full"
-            type="file"
-            name="image"
-            id="image"
-            hidden
-          />
-        </div>
-        <div className="flex flex-col w-[60%] gap-2">
-          {/* name */}
+    <div className="mt-10 max-w-4xl mx-auto">
+    <GoBackBtn />
+    <form
+      onSubmit={handleSubmit}
+      className="bg-white p-6 rounded-lg shadow-lg w-full mx-auto flex flex-col gap-5"
+    >
+      <div className="flex flex-col items-center gap-4 md:flex-row md:items-start w-full">
+        {/* Image Section */}
+        <div className="w-full md:w-1/3 flex justify-center relative">
+  {/* Label for Image Input */}
+  <label htmlFor="image" className="cursor-pointer relative group">
+    {/* Image Preview */}
+    {imagePreview ? (
+      <img
+        className="h-56 w-auto mx-auto rounded-lg shadow-xl hover:scale-105 transition-transform duration-300"
+        src={imagePreview}
+        alt="product-image"
+      />
+    ) : (
+      <div className="flex flex-col items-center justify-center w-56 h-56 border-4 border-dashed border-gray-300 rounded-lg shadow-md bg-gray-50 group-hover:bg-green-50 transition-all duration-300">
+        <span className="material-symbols-outlined text-6xl text-gray-600 group-hover:text-green-500 transition-all duration-300">
+          add_a_photo
+        </span>
+        <span className="text-gray-500 mt-2 group-hover:text-green-600 transition-all duration-300">
+          Click to upload
+        </span>
+      </div>
+    )}
+
+    {/* Input for selecting image */}
+    <input
+      onChange={handleChange}
+      className="absolute inset-0 opacity-0 cursor-pointer"
+      type="file"
+      name="image"
+      id="image"
+    />
+  </label>
+</div>
+  
+        {/* Form Inputs */}
+        <div className="flex flex-col w-full gap-4 md:w-2/3">
+          {/* Name */}
           <input
             value={form.name}
             onChange={handleChange}
-            className="border border-gray-300 p-2 rounded"
+            className="border border-gray-300 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
             type="text"
             name="name"
-            placeholder="Name"
+            placeholder="Product Name"
           />
-          {/* desc */}
+          {/* Description */}
           <input
             value={form.description}
             onChange={handleChange}
-            className="border border-gray-300 p-2 rounded"
+            className="border border-gray-300 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
             type="text"
             name="description"
             placeholder="Description"
           />
-          {/* price */}
+          {/* Price */}
           <input
             value={form.price}
             onChange={handleChange}
-            className="border border-gray-300 p-2 rounded"
+            className="border border-gray-300 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
             type="text"
             name="price"
             placeholder="Price"
           />
-          {/* stock */}
+          {/* Stock */}
           <input
             value={form.stock}
             onChange={handleChange}
-            className="border border-gray-300 p-2 rounded"
+            className="border border-gray-300 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
             type="number"
             name="stock"
             placeholder="Stock"
           />
-          {/* error */}
-           {error && <div className="text-red-600 text-lg">{error}...!</div>}
-          {/* add-btn */}
-          <button type="submit" className="bg-pink-700 text-white p-2 rounded" disabled={isSubmitting}>
-          {isSubmitting ? "Submitting..." : "Add"}
+          
+          {/* Error Message */}
+          {error && (
+            <div className="text-red-600 text-lg font-medium mt-2">
+              {error}...
+            </div>
+          )}
+          
+          {/* Submit Button */}
+          <button
+            type="submit"
+            className="bg-pink-700 text-white p-3 rounded-md hover:bg-pink-800 transition-all duration-300"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Submitting..." : "Add Product"}
           </button>
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
+  </div>  
   );
 };
 
