@@ -45,7 +45,7 @@ const Navbar = () => {
      && 
           <Link>
             <li
-              className="border border-pink-600 cursor-pointer  px-3 rounded-full w-fit hover:bg-pink-600 hover:text-white"
+              className="cursor-pointer py-1 px-3 rounded-full w-fit bg-pink-600 text-white"
               onClick={handleLogout}
             >
               Logout
@@ -65,7 +65,7 @@ const Navbar = () => {
 
     {/* Mobile nav dialog */}
     {isNavDialog && (
-      <ul className="flex flex-col md:hidden gap-2 text-lg text-gray-600 mt-4">
+      <ul className="flex flex-col md:hidden gap-2 text-gray-600 mt-4">
 
       {user && user?.user.status === "admin" && <Link to="/">
           <li className="hover:text-pink-700 cursor-pointer">Products</li>
@@ -77,7 +77,7 @@ const Navbar = () => {
         {user && user?.user.status === "admin" && 
           <Link>
             <li
-              className="border border-pink-600 cursor-pointer  px-3 rounded-full w-fit hover:bg-pink-600 hover:text-white"
+              className="cursor-pointer  px-3 rounded-full w-fit bg-pink-600 text-white hover:bg-pink-700"
               onClick={handleLogout}
             >
               Logout
