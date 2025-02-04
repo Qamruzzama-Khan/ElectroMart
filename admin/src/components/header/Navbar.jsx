@@ -67,11 +67,11 @@ const Navbar = () => {
     {isNavDialog && (
       <ul className="flex flex-col md:hidden gap-2 text-gray-600 mt-4">
 
-      {user && user?.user.status === "admin" && <Link to="/">
+      {user && user?.user.status === "admin" && <Link to="/" onClick={ToggleNavDialog}>
           <li className="hover:text-pink-700 cursor-pointer">Products</li>
         </Link>}
 
-       {user && user?.user.status === "admin" &&  <Link to="/orders">
+       {user && user?.user.status === "admin" &&  <Link to="/orders" onClick={ToggleNavDialog}>
           <li className="hover:text-pink-700 cursor-pointer">Orders</li>
         </Link>}
         {user && user?.user.status === "admin" && 
