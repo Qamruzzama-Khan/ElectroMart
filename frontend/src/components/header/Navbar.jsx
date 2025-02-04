@@ -29,7 +29,7 @@ const Navbar = () => {
         </Link>
 
         <Link to="/cart">
-          <li className="hover:text-pink-700 cursor-pointer flex items-start">
+          <li className="hover:text-pink-700  cursor-pointer flex items-start">
             <span className="material-symbols-outlined text-3xl">
               shopping_bag
             </span>
@@ -60,11 +60,11 @@ const Navbar = () => {
     </nav>
      {/* nav-dialog */}
    {isNavDialog &&   <ul className="flex flex-col md:hidden gap-2 text-lg  text-gray-600 mt-4">
-     <Link to="/">
+     <Link to="/" onClick={ToggleNavDialog}>
        <li className="hover:text-pink-700 cursor-pointer">Home</li>
      </Link>
 
-     <Link to="/cart">
+     <Link to="/cart" onClick={ToggleNavDialog}>
        <li className="hover:text-pink-700 cursor-pointer flex items-start">
          <span className="material-symbols-outlined text-3xl">
            shopping_bag
@@ -78,12 +78,12 @@ const Navbar = () => {
      </Link>
 
      {user && (
-       <Link to="/my-orders">
+       <Link to="/my-orders" onClick={ToggleNavDialog}>
          <li className="hover:text-pink-700 cursor-pointer">My Orders</li>
        </Link>
      )}
 
-     <Link to={user ? "/profile" : "/auth"}>
+     <Link to={user ? "/profile" : "/auth"} onClick={ToggleNavDialog}>
        <li className="hover:text-pink-700 cursor-pointer">
          {user ? "Profile" : "Login"}
        </li>
