@@ -19,7 +19,7 @@ function App() {
   const { user } = useAuthContext();
 
   return (
-    <div className="app">
+    <div className="app md:w-[80%] px-2">
       <Navbar />
       <ToastContainer
         position="top-right"

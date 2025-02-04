@@ -16,18 +16,20 @@ const ProductsPage = () => {
   }, []);
 
   return (
-    <div className="mt-10">
-      <div className="flex items-center justify-between">
-        <h4 className="text-lg text-gray-700 font-semibold">Listed Products</h4>
+    <div className="mt-5">
+      <div className="flex flex-row  items-center justify-between">
+        <h4 className="md:text-lg text-gray-700 font-semibold">Listed Products</h4>
         {/* add-product-btn */}
         <Link to="/add-product">
-          <button className="flex items-center text-lg text-gray-700 border border-gray-300 rounded px-2 py-1 hover:bg-gray-100">
+          <button className="flex items-center md:text-lg text-gray-700 hover:text-green-700">
             <span className="material-symbols-outlined">add</span>
             <span>New Product</span>
           </button>
         </Link>
       </div>
+      <div className="overflow-x-auto">
       <ProductList products={products} />
+      </div>
     </div>
   );
 };

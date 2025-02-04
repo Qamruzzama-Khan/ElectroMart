@@ -13,27 +13,27 @@ const Product = ({ product, index }) => {
   };
 
   return (
-    <tr className="border-b">
-      <td className="py-3 px-4">{index + 1}</td>
-      <td className="py-3 px-4 flex items-center space-x-3">
+    <tr className="border-b border-gray-300">
+      <td className="p-2">{index + 1}</td>
+      <td className="p-2 flex flex-col items-center md:flex-row md:items-center gap-1">
         <img
           className="h-10 w-10 object-cover rounded-md"
           src={product.image.imageUrl}
           alt="product-image"
         />
-        <span className="font-semibold">{product.name}</span>
+        <span className="font-semibold text-sm md:text-[15px]">{product.name}</span>
       </td>
-      <td className="py-3 px-4">{product.price}</td>
-      <td className="py-3 px-4">{product.stock}</td>
+      <td className="p-2 text-sm md:text-[15px]">{product.price}</td>
+      <td className="p-2 text-sm md:text-[15px]">{product.stock}</td>
       {/* actions */}
-      <td className="py-3 px-4 flex items-center gap-2">
+      <td className="p-2 flex items-center gap-2">
         {/* edit-link */}
         <Link to={`/update-product/${product._id}`}>
-          <span className="material-symbols-outlined">edit</span>
+          <span className="material-symbols-outlined hover:text-green-600 text-[20px]">edit</span>
         </Link>
         {/* delete-btn */}
-        <button onClick={() => handleDelete(product._id)}>
-          <span className="material-symbols-outlined">delete</span>
+        <button className="hover:text-red-600" onClick={() => handleDelete(product._id)}>
+          <span className="material-symbols-outlined text-[20px]">delete</span>
         </button>
       </td>
     </tr>
