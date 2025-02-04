@@ -5,11 +5,13 @@ import { useAuthContext } from "../hooks/useAuth";
 import { deleteCart } from "../services/api/cartApi";
 import { useCartContext } from "../hooks/useCart";
 import { toast } from "react-toastify";
+import {useNavigate} from "react-router-dom"
 
 const ChekoutPage = () => {
   const { user } = useAuthContext();
   const { clearCart } = useCartContext();
   const { cart } = useCartContext();
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log(cart);
@@ -76,6 +78,7 @@ const ChekoutPage = () => {
         },
         paymentMethod: "",
       });
+      navigate('/my-orders')
       // delete cart from backend
       await deleteCart(cart._id, user?.accessToken);
       // clear cart object from cartContext

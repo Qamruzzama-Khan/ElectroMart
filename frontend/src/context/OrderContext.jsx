@@ -6,18 +6,6 @@ export const OrderContext = createContext();
 
 export const OrderContextProvider = ({ children }) => {
   const [orders, setOrders] = useState();
-  const { user } = useAuthContext();
-
-  useEffect(() => {
-    const getPlacedOrders = async () => {
-      const response = await fetchPlacedOrders(user?.accessToken);
-      setOrders(response.data.data);
-      console.log(response.data.data);
-    };
-    if (user?.accessToken) {
-      getPlacedOrders();
-    }
-  }, [user]);
 
   //   update order status
   const updateOrderStatus = async (orderId, status) => {
@@ -32,6 +20,7 @@ export const OrderContextProvider = ({ children }) => {
     <OrderContext.Provider
       value={{
         orders,
+        setOrders,
         updateOrderStatus,
       }}
     >
