@@ -35,7 +35,7 @@ const Login = () => {
       dispatch({ type: "LOGIN", payload: response.data.data });
       localStorage.setItem("user", JSON.stringify(response.data.data));
       setIsSubmitting(false);
-      setForm({ name: "", email: "", password: "", confirmPassword: "" });
+      setForm({ email: "", password: "", });
       navigate(-1);
     } catch (error) {
       setError(error.response.data.message);

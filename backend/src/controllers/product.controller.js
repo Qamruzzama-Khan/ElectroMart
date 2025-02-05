@@ -3,6 +3,7 @@ import { ApiError } from "../utils/ApiError.js";
 import { Product } from "../models/product.model.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { uploadCloudinary, deleteCloudinary } from "../utils/Cloudinary.js";
+import { formatValue } from "../utils/FormatValue.js";
 
 // create product
 const createProduct = AsyncHandler(async (req, res) => {
@@ -40,11 +41,8 @@ const createProduct = AsyncHandler(async (req, res) => {
     throw new ApiError(400, "Error while uploading image on cloudinary");
   }
 
-  const formattedPrice = new Intl.NumberFormat("en-IN", {
-    style: "currency",
-    currency: "INR",
-    minimumFractionDigits: 0
-  }).format(price);
+  // formate price in INR
+  const formattedPrice = formatValue(price)
 
   const newProduct = await Product.create({
     name: modifiedName,
@@ -102,9 +100,9 @@ const updateProduct = AsyncHandler(async (req, res) => {
   }
   if (description) updatedFields.description = description;
   if (sizes) updatedFields.sizes = sizes;
-  if (price) updatedFields.price = price;
+  if (price) updatedFields.price = formatValue(price);
   if (stock) updatedFields.stock = stock;
-
+  
   const productImageLocalPath = req.file?.path;
 
   if (productImageLocalPath) {

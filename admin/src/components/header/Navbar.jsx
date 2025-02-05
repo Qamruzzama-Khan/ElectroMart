@@ -4,7 +4,7 @@ import { useState } from "react";
 
 const Navbar = () => {
   const { user, dispatch } = useAuthContext();
-  const [isNavDialog, setIsNavDialog] = useState();
+  const [isNavDialog, setIsNavDialog] = useState(false);
 
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
