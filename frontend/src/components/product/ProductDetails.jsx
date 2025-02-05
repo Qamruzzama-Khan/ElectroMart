@@ -37,8 +37,8 @@ const ProductDetails = ({ product }) => {
   };
 
   return (
-    <div className="flex flex-col items-center md:flex-row md:items-start gap-10 p-2 w-fit mx-auto">
-      <img className="h-56 md:h-80" src={product.image.imageUrl} alt="product-image" />
+    <div className="flex flex-col  md:flex-row md:items-start gap-10 p-2 w-full md:w-fit mx-auto">
+      <img className="h-56 w-56 mx-auto md:h-80 md:w-auto" src={product.image.imageUrl} alt="product-image" />
       <div className="flex flex-col gap-2">
         <p className="text-2xl font-bold text-gray-800">{product.name}</p>
         <p className="text-lg text-gray-600">{product.description}</p>
