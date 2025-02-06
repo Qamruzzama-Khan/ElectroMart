@@ -4,6 +4,9 @@ import { Product } from "../models/product.model.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { uploadCloudinary, deleteCloudinary } from "../utils/Cloudinary.js";
 import { formatValue } from "../utils/FormatValue.js";
+import NodeCache from "node-cache";
+
+const nodeCache = new NodeCache();
 
 // create product
 const createProduct = AsyncHandler(async (req, res) => {
@@ -69,7 +72,14 @@ const createProduct = AsyncHandler(async (req, res) => {
 
 // get products
 const getProducts = AsyncHandler(async (req, res) => {
-  const products = await Product.find({}).sort({ createdAt: -1 });
+  let products;
+
+  if(nodeCache.has("products")){
+    products = JSON.parse(nodeCache.get("products"));
+  }else{
+    products = await Product.find({}).sort({ createdAt: -1 });
+    nodeCache.set("products", JSON.stringify(products))
+  }
   return res.status(201).json(new ApiResponse(200, products));
 });          
 
@@ -135,6 +145,8 @@ const updateProduct = AsyncHandler(async (req, res) => {
     { new: true }
   );
 
+  nodeCache.del("products");
+
   return res
     .status(201)
     .json(new ApiResponse(200, updatedProduct, "Product updated successfully"));
@@ -160,6 +172,8 @@ const deleteProduct = AsyncHandler(async (req, res) => {
   }
 
   await Product.findByIdAndDelete(productId);
+
+  nodeCache.del("products");
 
   return res
     .status(201)
