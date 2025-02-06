@@ -4,9 +4,7 @@ import { Product } from "../models/product.model.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { uploadCloudinary, deleteCloudinary } from "../utils/Cloudinary.js";
 import { formatValue } from "../utils/FormatValue.js";
-import NodeCache from "node-cache";
-
-const nodeCache = new NodeCache();
+import {nodeCache} from "../utils/NodeCache.js"
 
 // create product
 const createProduct = AsyncHandler(async (req, res) => {
@@ -64,6 +62,8 @@ const createProduct = AsyncHandler(async (req, res) => {
   if (!createdProduct) {
     throw new ApiError(404, "Product did not created");
   }
+
+  nodeCache.del("products");
 
   return res
     .status(201)

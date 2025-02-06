@@ -4,6 +4,7 @@ import { AsyncHandler } from "../utils/AsyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { formatValue } from "../utils/FormatValue.js";
+import { nodeCache } from "../utils/NodeCache.js";
 
 // Add item to cart
 const addItemToCart = AsyncHandler(async (req, res) => {
@@ -102,6 +103,8 @@ const addItemToCart = AsyncHandler(async (req, res) => {
   // save the cart
   await cart.save();
 
+  nodeCache.del("cart");
+
   const newCart = await Cart.findById(cart._id).populate(
     "items.product",
     "name image"
@@ -116,12 +119,18 @@ const addItemToCart = AsyncHandler(async (req, res) => {
 const getCart = AsyncHandler(async (req, res) => {
   const userId = req.user._id;
 
-  const cart = await Cart.findOne({ userId })
+  let cart;
+
+  if(nodeCache.has("cart")){
+    cart = JSON.parse(nodeCache.get("cart"));
+  }else{
+    cart = await Cart.findOne({ userId })
     .sort({ createdAt: -1 })
     .populate("items.product", "name image");
-
-  if (!cart) {
-    throw new ApiError(404, "You are not added items to your cart");
+    if (!cart) {
+      throw new ApiError(404, "You are not added items to your cart");
+    }
+    nodeCache.set("cart", JSON.stringify(cart))
   }
 
   return res.status(201).json(new ApiResponse(200, cart, "Your cart"));
@@ -156,6 +165,8 @@ const removeItemFromCart = AsyncHandler(async (req, res) => {
   cart.totalBill = formattedGrandTotal;
 
   await cart.save();
+
+  nodeCache.del("cart");
 
   return res
     .status(201)
@@ -214,6 +225,8 @@ const updateCart = AsyncHandler(async (req, res) => {
   // save the cart
   await cart.save();
 
+  nodeCache.del("cart");
+
   const updatedCart = await Cart.findById(cart._id)
     .sort({ updatedAt: -1 })
     .populate("items.product", "name image");
@@ -233,6 +246,8 @@ const deleteCart = AsyncHandler(async (req, res) => {
   }
 
   await Cart.findByIdAndDelete(cartId);
+
+  nodeCache.del("cart");
 
   return res.status(201).json(new ApiResponse(200, "Cart deleted successfuly"));
 });
