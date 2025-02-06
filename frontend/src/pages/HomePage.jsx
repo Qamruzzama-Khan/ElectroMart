@@ -9,7 +9,7 @@ const HomePage = () => {
       <img className="h-40 md:h-80 w-full mx-auto" src="apple-hero-image.jpg" alt="hero-image" />
      <div className="mt-6">
       <h3 className="text-xl md:text-2xl text-gray-500">New Arrival</h3>
-      <Suspense fallback={<p className="mt-5">Loading Products...</p>}>
+      <Suspense>
       <ProductList />
       </Suspense>
      </div>
