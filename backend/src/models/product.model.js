@@ -24,6 +24,11 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: [true, "Please provide product price"],
     },
+    category: {
+      type: String,
+      required: [true, "Please provide product category"],
+      enum: ["mobile", "headphone", "smartWatch"]
+    },
     stock: {
       type: Number,
       default: 0,
