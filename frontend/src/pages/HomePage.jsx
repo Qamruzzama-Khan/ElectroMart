@@ -1,5 +1,5 @@
 import React, {Suspense} from "react";
-import CategoryList from "../components/category/categoryList";
+import CategoryList from "../components/category/CategoryList";
 
 const ProductList = React.lazy(() => import("../components/product/ProductList"))
 
