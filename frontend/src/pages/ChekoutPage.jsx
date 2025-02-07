@@ -13,10 +13,6 @@ const ChekoutPage = () => {
   const { cart } = useCartContext();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log(cart);
-  }, []);
-
   const [orderForm, setOrderForm] = useState({
     shippingInfo: {
       name: "",
