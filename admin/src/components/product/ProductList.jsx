@@ -1,7 +1,19 @@
-import { Link } from "react-router-dom";
 import Product from "./Product";
+import { useProductContext } from "../../hooks/useProduct";
+import { useEffect } from "react";
+import { fetchProducts } from "../../services/api/productApi";
 
-const ProductList = ({ products }) => {
+const ProductList = () => {
+  const { products, setProducts } = useProductContext();
+
+  useEffect(() => {
+    const getProducts = async () => {
+      const response = await fetchProducts();
+      setProducts(response.data.data);
+    };
+    getProducts();
+  }, []);
+
   return (
     <table className="min-w-full table-auto border-collapse rounded mt-2">
       <thead className="bg-gray-100 text-gray-700">

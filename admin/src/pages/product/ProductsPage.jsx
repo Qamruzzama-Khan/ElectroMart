@@ -1,19 +1,9 @@
-import { useEffect} from "react";
-import { fetchProducts } from "../../services/api/productApi";
 import { Link } from "react-router-dom";
-import ProductList from "../../components/product/ProductList"
-import { useProductContext } from "../../hooks/useProduct";
+import React, {Suspense} from "react";
+
+const ProductList = React.lazy(() => import("../../components/product/ProductList"))
 
 const ProductsPage = () => {
-  const { products, setProducts } = useProductContext();
-
-  useEffect(() => {
-    const getProducts = async () => {
-      const response = await fetchProducts();
-      setProducts(response.data.data);
-    };
-    getProducts();
-  }, []);
 
   return (
     <div className="mt-5">
@@ -28,7 +18,9 @@ const ProductsPage = () => {
         </Link>
       </div>
       <div className="overflow-x-auto">
-      <ProductList products={products} />
+     <Suspense>
+     <ProductList />
+     </Suspense>
       </div>
     </div>
   );
