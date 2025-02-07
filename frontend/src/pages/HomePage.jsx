@@ -1,4 +1,5 @@
 import React, {Suspense} from "react";
+import CategoryList from "../components/category/categoryList";
 
 const ProductList = React.lazy(() => import("../components/product/ProductList"))
 
@@ -13,6 +14,7 @@ const HomePage = () => {
       <ProductList />
       </Suspense>
      </div>
+     <CategoryList />
     </div>
   );
 };
