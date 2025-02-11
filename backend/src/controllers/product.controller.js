@@ -22,16 +22,16 @@ const createProduct = AsyncHandler(async (req, res) => {
   const { name, description, price, sizes, stock, category } = req.body;
   const userId = req.user;
 
-  // modify product name
-  const firstLetterOfName = name.slice(0, 1).toUpperCase();
-  const remainingLettersOName = name.slice(1).toLowerCase();
-  const modifiedName = firstLetterOfName + remainingLettersOName;
-
   const productCategory = await Category.findOne({ name: category });
 
   if (!productCategory) {
     throw new ApiError(409, "Category not exists");
   } 
+
+  // modify product name
+  const firstLetterOfName = name.slice(0, 1).toUpperCase();
+  const remainingLettersOName = name.slice(1).toLowerCase();
+  const modifiedName = firstLetterOfName + remainingLettersOName;
 
   const product = await Product.findOne({ name: modifiedName });
   if (product) {
@@ -89,7 +89,21 @@ const getProducts = AsyncHandler(async (req, res) => {
     nodeCache.set("products", JSON.stringify(products))
   }
   return res.status(201).json(new ApiResponse(200, products));
-});          
+});  
+
+// get products by category
+const getProductsByCategory = AsyncHandler(async (req, res) => {
+  const {categoryId} = req.params;
+  let products;
+
+  if(nodeCache.has("products")){
+    products = JSON.parse(nodeCache.get("products"));
+  }else{
+    products = await Product.find({category: categoryId}).sort({ createdAt: -1 });
+    nodeCache.set("products", JSON.stringify(products))
+  }
+  return res.status(201).json(new ApiResponse(200, products));
+});
 
 // update product
 const updateProduct = AsyncHandler(async (req, res) => {
@@ -205,4 +219,5 @@ export {
   updateProduct,
   deleteProduct,
   getOneProduct,
+  getProductsByCategory
 };
