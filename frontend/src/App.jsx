@@ -12,6 +12,7 @@ import { Navigate } from "react-router-dom";
 import ProfilePage from "./pages/auth/ProfilePage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ProductsPage from "./pages/product/ProductsPage";
 
 const App = () => {
   const { user } = useAuthContext();
@@ -42,6 +43,10 @@ const App = () => {
         <Route
           path="/product-details/:productId"
           element={<ProductDetailsPage />}
+        />
+        <Route
+          path="/products/:category"
+          element={<ProductsPage />}
         />
         <Route path="/checkout" element={<ChekoutPage />} />
         <Route

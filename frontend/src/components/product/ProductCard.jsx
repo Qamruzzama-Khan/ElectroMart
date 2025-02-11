@@ -4,9 +4,9 @@ const ProductCard = ({ product }) => {
 
   return (
     <Link to={`/product-details/${product._id}`}>
-      <div className="border border-gray-300 w-fit rounded h-[180px] w-[150px] p-2">
+      <div className="border border-gray-300 rounded h-[180px] w-[150px] p-2">
         <img
-          className="h-[110px] w-[120px] mx-auto"
+          className="h-[100px] w-auto mx-auto object-contain"
           src={product.image.imageUrl}
           alt="product-image"
         />
