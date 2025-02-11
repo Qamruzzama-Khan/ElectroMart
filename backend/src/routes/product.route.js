@@ -4,6 +4,7 @@ import {
   deleteProduct,
   getOneProduct,
   getProducts,
+  getProductsByCategory,
   updateProduct,
 } from "../controllers/product.controller.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
@@ -19,6 +20,9 @@ router
 
 // get products
 router.route("/get-products").get(getProducts);
+
+// get products by category
+router.route("/get-products-by-category/:categoryId").get(getProductsByCategory);
 
 // update product
 router
