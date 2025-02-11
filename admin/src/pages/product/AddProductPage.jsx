@@ -93,12 +93,12 @@ const AddProductPage = () => {
     {/* Image Preview */}
     {imagePreview ? (
       <img
-        className="h-56 w-auto mx-auto rounded-lg shadow-xl hover:scale-105 transition-transform duration-300"
+        className="h-[200px] w-auto mx-auto rounded-lg shadow-xl hover:scale-105 transition-transform duration-300 object-contain"
         src={imagePreview}
         alt="product-image"
       />
     ) : (
-      <div className="flex flex-col items-center justify-center w-56 h-56 border-4 border-dashed border-gray-300 rounded-lg shadow-md bg-gray-50 group-hover:bg-green-50 transition-all duration-300">
+      <div className="flex flex-col items-center justify-center w-[200px] h-[200px] border-4 border-dashed border-gray-300 rounded-lg shadow-md bg-gray-50 group-hover:bg-green-50 transition-all duration-300">
         <span className="material-symbols-outlined text-6xl text-gray-600 group-hover:text-green-500 transition-all duration-300">
           add_a_photo
         </span>
