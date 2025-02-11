@@ -11,6 +11,7 @@ const AddProductPage = () => {
     image: null,
     price: "",
     stock: 0,
+    category: ""
   });
   const [imagePreview, setImagePreview] = useState(null);
   const { user } = useAuthContext();
@@ -70,6 +71,7 @@ const AddProductPage = () => {
       image: null,
       price: "",
       stock: 0,
+      category: ""
     });
     setImagePreview(null);
     } catch (error) {
@@ -157,6 +159,22 @@ const AddProductPage = () => {
             name="stock"
             placeholder="Stock"
           />
+
+          {/* Category */}
+          
+          <select
+            className="border border-gray-300 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+            name="category"
+            value={form.category}
+            onChange={handleChange}
+          >
+            <option value="" disabled>
+              Select Category
+            </option>
+            <option value="mobile">Mobile</option>
+            <option value="headphone">Head Phone</option>
+            <option value="smartWatch">Smart Watch</option>
+          </select>
           
           {/* Error Message */}
           {error && (

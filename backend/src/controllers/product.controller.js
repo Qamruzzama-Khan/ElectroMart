@@ -5,6 +5,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { uploadCloudinary, deleteCloudinary } from "../utils/Cloudinary.js";
 import { formatValue } from "../utils/FormatValue.js";
 import {nodeCache} from "../utils/NodeCache.js"
+import {Category} from "../models/category.model.js"
 
 // create product
 const createProduct = AsyncHandler(async (req, res) => {
@@ -18,13 +19,19 @@ const createProduct = AsyncHandler(async (req, res) => {
   // 7. if not throw api error
   // 6. otherwise send response
 
-  const { name, description, price, sizes, stock } = req.body;
+  const { name, description, price, sizes, stock, category } = req.body;
   const userId = req.user;
 
   // modify product name
   const firstLetterOfName = name.slice(0, 1).toUpperCase();
   const remainingLettersOName = name.slice(1).toLowerCase();
   const modifiedName = firstLetterOfName + remainingLettersOName;
+
+  const productCategory = await Category.findOne({ name: category });
+
+  if (!productCategory) {
+    throw new ApiError(409, "Category not exists");
+  } 
 
   const product = await Product.findOne({ name: modifiedName });
   if (product) {
@@ -55,6 +62,7 @@ const createProduct = AsyncHandler(async (req, res) => {
       imageUrl: productImage.url,
       imageId: productImage.public_id,
     },
+    category: productCategory._id,
     owner: userId,
   });
 
