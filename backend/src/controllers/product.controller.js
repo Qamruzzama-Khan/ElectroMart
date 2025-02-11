@@ -96,12 +96,14 @@ const getProductsByCategory = AsyncHandler(async (req, res) => {
   const {categoryId} = req.params;
   let products;
 
-  if(nodeCache.has("products")){
-    products = JSON.parse(nodeCache.get("products"));
-  }else{
-    products = await Product.find({category: categoryId}).sort({ createdAt: -1 });
-    nodeCache.set("products", JSON.stringify(products))
-  }
+  products = await Product.find({category: categoryId}).sort({ createdAt: -1 });
+
+  // if(nodeCache.has("products")){
+  //   products = JSON.parse(nodeCache.get("products"));
+  // }else{
+  
+  //   nodeCache.set("products", JSON.stringify(products))
+  // }
   return res.status(201).json(new ApiResponse(200, products));
 });
 
