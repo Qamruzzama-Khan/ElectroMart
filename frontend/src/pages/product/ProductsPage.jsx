@@ -1,21 +1,20 @@
 import { useEffect, useState } from "react";
 import GoBackBtn from "../../components/buttons/GoBackBtn";
-import { fetchProducts } from "../../services/api/productApi";
+import { fetchProductsByCategory } from "../../services/api/productApi";
 import ProductCard from "../../components/product/ProductCard";
 import { useParams } from "react-router-dom";
 
 const ProductsPage = () => {
   const [products, setProducts] = useState()
-  const {category} = useParams();
+  const {categoryId} = useParams();
 
   useEffect(() => {
-    const getProducts = async () => {
-      const response = await fetchProducts();
+    const getProductsByCategory = async () => {
+      const response = await fetchProductsByCategory(categoryId);
       console.log(response.data.data)
       setProducts(response.data.data)
     }
-    getProducts();
-    console.log("category is : ", category)
+    getProductsByCategory();
   }, [])
 
   return (

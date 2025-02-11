@@ -45,7 +45,7 @@ const App = () => {
           element={<ProductDetailsPage />}
         />
         <Route
-          path="/products/:category"
+          path="/products/:categoryId"
           element={<ProductsPage />}
         />
         <Route path="/checkout" element={<ChekoutPage />} />
