@@ -2,14 +2,28 @@ import { Link } from "react-router-dom";
 import { deleteProduct } from "../../services/api/productApi";
 import { useAuthContext } from "../../hooks/useAuth";
 import { useProductContext } from "../../hooks/useProduct";
+import { jwtDecode } from "jwt-decode";
 
 const Product = ({ product, index }) => {
   const { products, setProducts } = useProductContext();
-  const { user } = useAuthContext();
+  const { user, dispatch } = useAuthContext();
 
   const handleDelete = async (productId) => {
-    setProducts(products.filter((product) => product._id !== productId));
-    const response = await deleteProduct(productId, user?.accessToken);
+      const token = user?.accessToken;
+
+      if (token) {
+        const decoded = jwtDecode(token);
+        const currentTime = Date.now() / 1000; // in seconds
+
+        if (decoded.exp < currentTime) {
+          // Token expired
+          localStorage.removeItem("user");
+          dispatch({ type: "LOGOUT" });
+        } else {
+        setProducts(products.filter((product) => product._id !== productId));
+        await deleteProduct(productId, user?.accessToken);
+      }
+      }
   };
 
   return (
@@ -21,7 +35,9 @@ const Product = ({ product, index }) => {
           src={product.image.imageUrl}
           alt="product-image"
         />
-        <span className="font-semibold text-sm md:text-[15px]">{product.name}</span>
+        <span className="font-semibold text-sm md:text-[15px]">
+          {product.name}
+        </span>
       </td>
       <td className="p-2 text-sm md:text-[15px]">{product.price}</td>
       <td className="p-2 text-sm md:text-[15px]">{product.stock}</td>
@@ -29,10 +45,15 @@ const Product = ({ product, index }) => {
       <td className="p-2 flex items-center gap-2">
         {/* edit-link */}
         <Link to={`/update-product/${product._id}`}>
-          <span className="material-symbols-outlined hover:text-green-600 text-[20px]">edit</span>
+          <span className="material-symbols-outlined hover:text-green-600 text-[20px]">
+            edit
+          </span>
         </Link>
         {/* delete-btn */}
-        <button className="hover:text-red-600" onClick={() => handleDelete(product._id)}>
+        <button
+          className="hover:text-red-600"
+          onClick={() => handleDelete(product._id)}
+        >
           <span className="material-symbols-outlined text-[20px]">delete</span>
         </button>
       </td>

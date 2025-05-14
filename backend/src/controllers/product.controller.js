@@ -9,16 +9,6 @@ import {Category} from "../models/category.model.js"
 
 // create product
 const createProduct = AsyncHandler(async (req, res) => {
-  // Algorithm for creating new product:
-  // 1. get data from req.body
-  // 2. validate it empy or not
-  // 3. check if product already exists or not by name
-  // 4. if product already exists throw api error
-  // 5. if not create new product
-  // 6. check if new product created or not by finding product with new product._id
-  // 7. if not throw api error
-  // 6. otherwise send response
-
   const { name, description, price, sizes, stock, category } = req.body;
   const userId = req.user;
 
@@ -78,7 +68,7 @@ const createProduct = AsyncHandler(async (req, res) => {
     .json(new ApiResponse(200, createdProduct, "Product added successfully"));
 });
 
-// get products
+// get all products
 const getProducts = AsyncHandler(async (req, res) => {
   let products;
 
@@ -109,13 +99,6 @@ const getProductsByCategory = AsyncHandler(async (req, res) => {
 
 // update product
 const updateProduct = AsyncHandler(async (req, res) => {
-  // Algorithm:
-  // 1. get product productId from req.params, and updating data from req.body
-  // 2. find product by the productId
-  // 3. if product not found throw api error
-  // 4. otherwise find the product by productId and update it
-  // 5. send response
-
   const { productId } = req.params;
   const { name, description, price, sizes, stock } = req.body;
 
@@ -176,6 +159,7 @@ const updateProduct = AsyncHandler(async (req, res) => {
     .json(new ApiResponse(200, updatedProduct, "Product updated successfully"));
 });
 
+// delete product
 const deleteProduct = AsyncHandler(async (req, res) => {
   const { productId } = req.params;
 
@@ -204,6 +188,7 @@ const deleteProduct = AsyncHandler(async (req, res) => {
     .json(new ApiResponse(200, product, "Product deleted successfully"));
 });
 
+// get one product
 const getOneProduct = AsyncHandler(async (req, res) => {
   const { productId } = req.params;
 

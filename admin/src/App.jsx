@@ -9,11 +9,12 @@ import Navbar from "./components/header/Navbar";
 import LoginPage from "./pages/auth/LoginPage";
 import OrdersPage from "./pages/order/OrdersPage";
 import { useAuthContext } from "./hooks/useAuth";
-import ProductsPage from "./pages/product/ProductsPage"
+import ProductsPage from "./pages/product/ProductsPage";
 import AddProductPage from "./pages/product/AddProductPage";
 import UpdateProductPage from "./pages/product/UpdateProductPage";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import ProtectedRoute from "./components/routes/ProtectedRoute";
 
 function App() {
   const { user } = useAuthContext();
@@ -39,7 +40,9 @@ function App() {
           path="/"
           element={
             user && user?.user.status === "admin" ? (
-              <ProductsPage />
+              <ProtectedRoute>
+                <ProductsPage />
+              </ProtectedRoute>
             ) : (
               <Navigate to="/login" />
             )
@@ -50,7 +53,9 @@ function App() {
           path="/add-product"
           element={
             user && user?.user.status === "admin" ? (
-              <AddProductPage />
+              <ProtectedRoute>
+                <AddProductPage />
+              </ProtectedRoute>
             ) : (
               <Navigate to="/login" />
             )
@@ -61,7 +66,9 @@ function App() {
           path="/update-product/:productId"
           element={
             user && user?.user.status === "admin" ? (
-              <UpdateProductPage />
+              <ProtectedRoute>
+                <UpdateProductPage />
+              </ProtectedRoute>
             ) : (
               <Navigate to="/login" />
             )
@@ -72,7 +79,9 @@ function App() {
           path="/orders"
           element={
             user?.user.status === "admin" ? (
-              <OrdersPage />
+             <ProtectedRoute>
+               <OrdersPage />
+             </ProtectedRoute>
             ) : (
               <Navigate to="/login" />
             )
