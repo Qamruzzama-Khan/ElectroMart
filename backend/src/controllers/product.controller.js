@@ -117,7 +117,13 @@ const updateProduct = AsyncHandler(async (req, res) => {
   }
   if (description) updatedFields.description = description;
   if (sizes) updatedFields.sizes = sizes;
-  if (price) updatedFields.price = formatValue(price);
+  if(price) {
+   if(typeof price === "string" && price.trim().startsWith("₹")){
+    updatedFields.price = price; // already formatted
+   } else {
+    updatedFields.price = formatValue(price);
+   }
+  }
   if (stock) updatedFields.stock = stock;
   
   const productImageLocalPath = req.file?.path;
@@ -156,7 +162,7 @@ const updateProduct = AsyncHandler(async (req, res) => {
 
   return res
     .status(201)
-    .json(new ApiResponse(200, updatedProduct, "Product updated successfully"));
+    .json(new ApiResponse(200, "Product updated successfully"));
 });
 
 // delete product

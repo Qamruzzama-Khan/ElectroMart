@@ -6,3 +6,5 @@ const api = axios.create({
 
 export const loginUser = (data) => api.post("/login", data);
 
+
+
